@@ -4,7 +4,7 @@ const cors = require('cors');
 const bcrypt = require('bcryptjs');
 
 require("dotenv").config();
-
+const jwt = require('jsonwebtoken');
 const User = require('./Models/User');
 
 const app = express();
@@ -55,38 +55,55 @@ app.post("/api/register", async (req, res) => {
 });
 
 app.post("/api/login", async (req, res) => {
-
     try {
         const { phone, password } = req.body;
-        const user = await User.findOne({ phone: phone });
-        console.log(phone, password);
-        if (!user) {
+
+        const existingUser = await User.findOne({ phone });
+
+        if (!existingUser) {
             return res.status(400).json({
-                message: "Failed"
+                message: "User not found"
             });
         }
-        const hashedPassword = user.password;
-        bcrypt.compare(password, hashedPassword, (err, isMatch) => {
-            if (err) {
-                return res.status(404).json({
-                    message: "Failed"
-                });
+
+        const haspasswordmatch = await bcrypt.compare(
+            password,
+            existingUser.password
+        );
+
+        if (!haspasswordmatch) {
+            return res.status(400).json({
+                message: "Invalid Password"
+            });
+        }
+
+        const token = jwt.sign(
+            {
+                id: existingUser._id,
+                phone: existingUser.phone
+            },
+            process.env.JWT_SECRET,
+            {
+                expiresIn: "1h"
             }
-            if (isMatch) {
-                return res.status(201).json({
-                    message: "success",
-                    name: user.fullname
-                });
-            }
-            else {
-                return res.status(200).json({
-                    message: "Failed"
-                });
+        );
+
+        res.status(200).json({
+            message: "Login successful",
+            token,
+            user: {
+                id: existingUser._id,
+                fullname: existingUser.fullname,
+                phone: existingUser.phone
             }
         });
+
     } catch (error) {
+        console.log(error);
+
         res.status(500).json({
-            message: "Failed"
+            message: "Login Failed",
+            error: error.message
         });
     }
 });

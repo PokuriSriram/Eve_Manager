@@ -7,15 +7,25 @@ import Layout from './components/Layout';
 import Contact from './Pages/Contact';
 import Gallery from './Pages/Gallery';
 import Register from './Pages/Register';
+import ProtectedRoute from './components/ProtectedRoute';
 const App = () => {
   return (
     <BrowserRouter>
     <Routes>
+    <Route path="/" element={<Navigate to="/login" />} />
 
-  <Route element={<Layout />}>
-  <Route path="/login" element={<Login />} />
-  <Route path="/register" element={<Register />} />
-  <Route path="/home" element={<Home />} />
+<Route path="/login" element={<Login />} />
+
+<Route path="/register" element={<Register />} />
+
+<Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <Layout />
+            </ProtectedRoute>
+          }
+        >
     <Route index element={<Home />} />
     <Route path="/events" element={<Events />} />
     <Route path="/gallery" element={<Gallery />} />
