@@ -1,14 +1,133 @@
-nav{
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+* {
+    font-family: 'Poppins', sans-serif;
+}
+
+.header-navbar {
+    background: #ffffff;
+    padding: 18px 40px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.header-navbar .container-fluid {
     display: flex;
-    justify-content: space-evenly;
-    height: 70px;
+    justify-content: space-between;
     align-items: center;
 }
-.nav-logo:hover{
+
+/* Logo */
+
+.header-logo {
+    font-size: 1.8rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    cursor: pointer;
+}
+
+.logo-code {
+    color: #111;
+}
+
+.logo-now {
+    color:linear-gradient(
+        135deg,
+        #45108a 0%,
+        #7b2ff7 50%,
+        #f72585 100%
+    );
+    margin-left: 3px;
+}
+
+.logo-events {
+    color: #666;
+    font-size: 1rem;
+    margin-left: 8px;
+    letter-spacing: 3px;
+}
+
+
+.header-links {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.header-link {
+    position: relative;
+    text-decoration: none;
+    color: #222;
+    font-weight: 600;
+    transition: 0.3s ease;
+}
+
+.header-link:hover {
+    color: #0d6efd;
+}
+
+.header-link::after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 3px;
+    left: 0;
+    bottom: -6px;
     background:linear-gradient(
         135deg,
         #45108a 0%,
         #7b2ff7 50%,
         #f72585 100%
     );
+    border-radius: 5px;
+    transition: width 0.3s ease;
+}
+
+.header-link:hover::after {
+    width: 100%;
+}
+
+/* Logout Button */
+
+.logout-link {
+    background: #111;
+    color: white !important;
+    padding: 8px 18px;
+    border-radius: 8px;
+}
+
+.logout-link:hover {
+    background: linear-gradient(135deg,
+            #45108a 0%,
+            #7b2ff7 50%,
+            #f72585 100%);
+}
+
+.logout-link::after {
+    display: none;
+}
+
+
+@media(max-width:768px) {
+
+    .header-navbar {
+        padding: 15px;
+    }
+
+    .header-navbar .container-fluid {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .header-links {
+        gap: 15px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .header-logo {
+        font-size: 1.4rem;
+    }
 }

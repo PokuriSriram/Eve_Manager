@@ -30,7 +30,7 @@ const Home = ({name}) => {
                         </p>
 
                         <Link
-                            to="/contact"
+                            to="/home/contact"
                             className="btn btn-lg btn-pink px-5 mt-3"
                         >
                             Get A Free Quote

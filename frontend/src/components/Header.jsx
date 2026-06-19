@@ -1,19 +1,47 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
-import './Header.css'
+import './Header.css';
+
 const Header = () => {
     return (
-        <div>
-            <nav className='navbar-md bg-light text-dark'>
-                <div className='nav-logo'>CODENOW EVENTS<img className='W-200' /></div>
-                <Link className="text-decoration-none link-dark" to="/login">Logout</Link>
-                <Link className="text-decoration-none text-dark" to="/home">Home</Link>
-                <Link className="text-decoration-none text-dark" to="/home/events">Events</Link>
-                <Link className="text-decoration-none text-dark" to="/home/gallery">Gallery</Link>
-                <Link className="text-decoration-none text-dark" to="/home/contact">Contact</Link>
-            </nav>
-        </div>
+        <nav className="navbar navbar-expand-lg header-navbar">
+
+            <div className="container-fluid">
+
+                <div className="header-logo">
+                    <span className="logo-code">CODE</span>
+                    <span className="logo-now">NOW</span>
+                    <span className="logo-events">EVENTS</span>
+                </div>
+
+                <div className="header-links">
+
+                    <Link className="header-link" to="/home">
+                        Home
+                    </Link>
+
+                    <Link className="header-link" to="/home/events">
+                        Events
+                    </Link>
+
+                    <Link className="header-link" to="/home/gallery">
+                        Gallery
+                    </Link>
+
+                    <Link className="header-link" to="/home/contact">
+                        Contact
+                    </Link>
+
+                    <Link className="header-link logout-link" to="/login">
+                        Logout
+                    </Link>
+
+                </div>
+
+            </div>
+
+        </nav>
     )
 }
 
-export default Header
+export default Header;
