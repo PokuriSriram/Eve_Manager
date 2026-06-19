@@ -2,8 +2,10 @@ import { useState } from "react";
 import axios from "axios";
 import Login from "./Login";
 import "./Register.css";
+import { useNavigate } from "react-router-dom";
 
 function Register() {
+    const navigate=useNavigate();
     const [login, SetLogin] = useState(false);
     const [fullName, setFullName] = useState("");
     const [email, setEmail] = useState("");
@@ -32,6 +34,7 @@ function Register() {
             setEmail("");
             setPassword("");
             setPhone("");
+            navigate("/login");
         } catch (error) {
             alert(error.response.data.message);
         }
