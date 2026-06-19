@@ -19,8 +19,6 @@
     align-items: center;
 }
 
-/* Logo */
-
 .header-logo {
     font-size: 1.8rem;
     font-weight: 800;
@@ -89,7 +87,6 @@
     width: 100%;
 }
 
-/* Logout Button */
 
 .logout-link {
     background: #111;

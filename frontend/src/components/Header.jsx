@@ -3,6 +3,10 @@ import { Link } from 'react-router-dom';
 import './Header.css';
 
 const Header = () => {
+    function handlelogout(){
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+    }
     return (
         <nav className="navbar navbar-expand-lg header-navbar">
 
@@ -32,7 +36,7 @@ const Header = () => {
                         Contact
                     </Link>
 
-                    <Link className="header-link logout-link" to="/login">
+                    <Link onClick={handlelogout} className="header-link logout-link" to="/login">
                         Logout
                     </Link>
 
