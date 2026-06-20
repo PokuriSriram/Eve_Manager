@@ -2,27 +2,30 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 import axios from "axios"
 const Events = () => {
-  const [eventImg, setEventImg] = useState("");
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
+  const [Eventimage, setEventImg] = useState("");
+  const [Title, setTitle] = useState("");
+  const [Description, setDescription] = useState("");
   const [events, setEvents] = useState([]);
   const [editId, setEditId] = useState(null);
 
   async function fetchEvents(e){
     try{
-        const response=await axios.get(`http://localhost:5000/api/courses`);
+        const response=await axios.get(`http://localhost:5000/api/events`);
         setEvents(response.data);
     }
     catch(error){
         alert('No data Found');
     }
-  }
+  };
+  useEffect(() => {
+    fetchEvents();
+}, []);
   const handleevent = async (e) => {
     e.preventDefault();
     const eventData = {
-      eventImg,
-      title,
-      description,
+      Eventimage,
+      Title,
+      Description,
     };
     try {
       if (editId) {
@@ -35,14 +38,13 @@ const Events = () => {
       }
       else {
         const response = await axios.post(
-          `http://localhost:5000/api/events/${editId}`, eventData
+          "http://localhost:5000/api/events", eventData
         );
         alert(response.data.message);
       }
       setEventImg("");
       setTitle("");
       setDescription("");
-
       fetchEvents();
 
     }
@@ -50,6 +52,34 @@ const Events = () => {
       alert(error.response.message);
     }
   };
+
+
+  const handleEdit = (event) => {
+    setEditId(event._id);
+    setEventImg(event.Eventimage);
+    setTitle(event.Title);
+    setDescription(event.Description);
+};
+
+const handleDelete = async (id) => {
+    const confirmDelete = window.confirm("Are you sure you want to delete?");
+
+    if (!confirmDelete) {
+        return;
+    }
+
+    try {
+        const response = await axios.delete(
+            `http://localhost:5000/api/events/${id}`
+        );
+
+        alert(response.data.message);
+
+        fetchEvents();
+    } catch (error) {
+        alert("Failed to delete event");
+    }
+};
   return (
     <div>
       <div className='events-banner'>
@@ -58,7 +88,7 @@ const Events = () => {
       <form onSubmit={handleevent}>
         <input type="text"
           placeholder='image-url'
-          value={eventImg}
+          value={Eventimage}
           onChange={(e) => setEventImg(e.target.value)}
           className='form-control'
         />
@@ -66,7 +96,7 @@ const Events = () => {
 
         <input type="text"
           placeholder='Title of Event'
-          value={title}
+          value={Title}
           onChange={(e) => setTitle(e.target.value)}
           className='form-control'
         />
@@ -74,14 +104,14 @@ const Events = () => {
 
         <input type="text"
           placeholder='description of event'
-          value={description}
+          value={Description}
           onChange={(e) => setDescription(e.target.value)}
           className='form-control'
         />
         <br></br>
 
         <button type="submit">
-          {editId ? "Update Course" : "Add Course"}
+          {editId ? "Update Event" : "Add Event"}
         </button>
 
         {editId && (
@@ -115,14 +145,14 @@ const Events = () => {
               }}
             >
               <img
-                src={event.eventImg}
-                alt={event.title}
+                src={event.Eventimage}
+                alt={event.Title}
                 width="200"
               />
 
-              <h3>{event.title}</h3>
+              <h3>{event.Title}</h3>
 
-              <p>{event.description}</p>
+              <p>{event.Description}</p>
 
               <button onClick={() => handleEdit(event)}>
                 Edit
@@ -139,4 +169,4 @@ const Events = () => {
   )
 }
 
-export default Events
+export default Events;
