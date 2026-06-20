@@ -125,10 +125,7 @@ app.post("/api/events", async (req, res) => {
             Title,
             Description
         });
-        console.log("Event:", Event);
-        console.log("typeof Event:", typeof Event);
-        console.log("newEvent:", newEvent);
-        console.log("save:", typeof newEvent.save);
+
         await newEvent.save();
 
         res.status(201).json({
@@ -144,18 +141,90 @@ app.post("/api/events", async (req, res) => {
     }
 });
 
-app.get("/api/events", async(req,res) =>{
-    try{
-        const events=await Event.find().sort({createdAt:-1});
+app.get("/api/events", async (req, res) => {
+    try {
+        const events = await Event.find().sort({ createdAt: -1 });
         res.status(200).json(events);
     }
-    catch(error){
-            res.status(500).json(
+    catch (error) {
+        res.status(500).json(
+            {
+                message: "Failed to fetch events",
+                error: error.message,
+            }
+        );
+    }
+});
+
+app.put("/api/events/:id", async (req, res) => {
+    try {
+        const { Eventimage, Title, Description } = req.body;
+        const updateEvent = await Event.findByIdAndUpdate(
+            req.params.id,
+            {
+                Eventimage,
+                Title,
+                Description,
+            },
+            {
+                new: true,
+            }
+        );
+
+        if (!updateEvent) {
+            return res.status(400).json(
                 {
-                    message:"Failed to fetch events",
-                    error:error.message,
+                    message: "Event not found"
                 }
             );
+        }
+        res.status(200).json({
+            message: "Event Updated"
+
+        });
+    }
+    catch (error) {
+        res.status(500).json({
+            message: "Failed to update Event",
+            error: error.message
+        });
+    }
+});
+
+
+app.delete("/api/events/:id", async (req, res) => {
+    try {
+        const deletedEvent = await Event.findByIdAndDelete(req.params.id);
+        if (!deletedEvent) {
+            return res.status(404).json({
+                message: "Event not Found!"
+            });
+        }
+        res.status(200).json({
+            message: "Event Deleted Successfully!"
+        });
+    }
+    catch (error) {
+        res.status(500).json({
+            message: "Failed to Delete Event",
+            error: error.message,
+        });
+    }
+});
+
+
+app.get("/api/event-count", async (req, res) => {
+    try {
+        const count = await Event.countDocuments();
+
+        res.status(200).json({
+            totalEvents: count,
+        });
+    } catch (error) {
+        res.status(500).json({
+            message: "Failed to count courses",
+            error: error.message,
+        });
     }
 });
 
