@@ -1,9 +1,30 @@
-import React from 'react'
-
-const EventCard = () => {
+import React from "react";
+import './Event.css';
+const EventCard = ({ event, onEdit, onDelete }) => {
   return (
-    <div>EventCard</div>
-  )
-}
+    <div className="event-card">
+      <img
+        src={event.Eventimage}
+        alt={event.Title}
+        className="event-image"
+      />
 
-export default EventCard
+      <div className="event-content">
+        <h3>{event.Title}</h3>
+        <p>{event.Description}</p>
+
+        <div className="event-actions">
+          <button onClick={() => onEdit(event)}>
+            Edit
+          </button>
+
+          <button onClick={() => onDelete(event._id)}>
+            Delete
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default EventCard;
