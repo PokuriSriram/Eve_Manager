@@ -42,7 +42,7 @@ const Contact = () => {
         <div className="hero-circle hero-circle-2"></div>
 
         <div className="container position-relative py-5" style={{ zIndex: 2 }}>
-          
+
           <h1 className="hero-title">
             Get In <span className="text-gradient-pink">Touch</span>
           </h1>
@@ -198,7 +198,7 @@ const Contact = () => {
                 />
                 <InfoCard
                   label="Call Us Anytime"
-                  title="+91-99321371823 / +91-8076206368"
+                  title="+91-99321371823 / +917989805729"
                   subtitle="+91-9650932214 | 0120-4331453"
                 />
                 <InfoCard
@@ -215,8 +215,24 @@ const Contact = () => {
                     <div className="d-flex gap-2">
                       <span className="social-circle">f</span>
                       <span className="social-circle">𝕏</span>
-                      <span className="social-circle">ig</span>
-                      <span className="social-circle">in</span>
+                      <span className="social-circle"><a
+  href="https://instagram.com/pavanreddy_annapureddy"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="social-circle"
+  aria-label="Instagram"
+>
+  ig
+</a></span>
+                      <span className="social-circle"><a
+  href="https://linkedin.com/in/punya-pavan-annapureddy"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="social-circle"
+  aria-label="LinkedIn"
+>
+  in
+</a></span>
                     </div>
                   </div>
                 </div>
@@ -227,8 +243,26 @@ const Contact = () => {
       </main>
 
       <div className="floating-buttons">
-        <button className="float-btn whatsapp-btn" aria-label="Chat on WhatsApp">💬</button>
-        <button className="float-btn call-btn" aria-label="Call us">📞</button>
+        <button
+          className="float-btn whatsapp-btn"
+          aria-label="Chat on WhatsApp"
+          onClick={() =>
+            window.open(
+              "https://wa.me/919876543210?text=Hello%20I%20am%20interested%20in%20your%20event",
+              "_blank"
+            )
+          }
+        >
+          💬
+        </button>
+
+        <button
+          className="float-btn call-btn"
+          aria-label="Call us"
+          onClick={() => window.location.href = "tel:+917989805729"}
+        >
+          📞
+        </button>
       </div>
       <div className="footer-strip"></div>
     </div>
