@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import EventCard from "../components/EventCard";
 import { toast } from "react-toastify";
+import './Events.css'
 const Events = () => {
   const [Eventimage, setEventImg] = useState("");
   const [Title, setTitle] = useState("");
@@ -100,12 +101,15 @@ const Events = () => {
   };
 
   return (
-    <div>
+    <div className="events-page">
       <div className="events-banner">
-        <h2>Events</h2>
+        <h2 className="text-light" >Events</h2>
       </div>
 
-      <form onSubmit={handleevent}>
+      <form onSubmit={handleevent} className="event-form">
+        <h3 style={{ marginBottom: "20px", textAlign: "center" }}>
+          {editId ? "Update Event" : "Create New Event"}
+        </h3>
         <input
           type="text"
           placeholder="Image URL"
@@ -133,27 +137,30 @@ const Events = () => {
         />
         <br />
 
-        <button type="submit">
-          {editId ? "Update Event" : "Add Event"}
-        </button>
-
-        {editId && (
-          <button
-            type="button"
-            onClick={cancelEdit}
-            style={{ marginLeft: "10px" }}
-          >
-            Cancel Edit
+        <div className="button-group">
+          <button type="submit" className="submit-btn">
+            {editId ? "Update Event" : "Add Event"}
           </button>
-        )}
+
+          {editId && (
+            <button
+              type="button"
+              className="cancel-btn"
+              onClick={cancelEdit}
+            >
+              Cancel Edit
+            </button>
+          )}
+
+        </div>
       </form>
 
       <hr />
 
-      <h2>Event List</h2>
+      <h2 className="event-list-title">Event List</h2>
 
       {events.length === 0 ? (
-        <p>No Events Found</p>
+        <p className="no-events">No Events Found</p>
       ) : (
         <div className="events-container">
           {events.map((event) => (

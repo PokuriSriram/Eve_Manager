@@ -13,13 +13,20 @@ const EventCard = ({ event, onEdit, onDelete }) => {
         <h3>{event.Title}</h3>
         <p>{event.Description}</p>
 
+
         <div className="event-actions">
-          <button onClick={() => onEdit(event)}>
-            Edit
+          <button
+            className="edit-btn"
+            onClick={() => onEdit(event)}
+          >
+            ✏️ Edit
           </button>
 
-          <button onClick={() => onDelete(event._id)}>
-            Delete
+          <button
+            className="delete-btn"
+            onClick={() => onDelete(event._id)}
+          >
+            🗑️ Delete
           </button>
         </div>
       </div>
