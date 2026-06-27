@@ -1,6 +1,7 @@
 
 import { useState } from "react";
-import axios from "axios";
+
+
 import { Link } from 'react-router-dom';
 import Register from "./Register";
 import Home from "./Home";
@@ -8,6 +9,7 @@ import './login.css'
 import { useNavigate } from "react-router-dom";
 import  {FaPhone,FaLock} from "react-icons/fa";
 import { toast } from "react-toastify";
+import api from "../api/axios";
 function Login() {
     const [curUser, setCurUser] = useState(null);
     const [show, setShow] = useState(false);
@@ -21,8 +23,8 @@ function Login() {
             password: password
         };
         try {
-            const response = await axios.post(
-                "http://localhost:5000/api/login", userData
+            const response = await api.post(
+                "/api/login", userData
             );
             localStorage.setItem("token", response.data.token);
 

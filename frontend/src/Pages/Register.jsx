@@ -1,10 +1,13 @@
 import { useState } from "react";
-import axios from "axios";
+
+
+
 import Login from "./Login";
 import "./Register.css";
 import { useNavigate } from "react-router-dom";
 import { FaUser, FaEnvelope, FaLock, FaPhone } from "react-icons/fa";
 import { toast } from "react-toastify";
+import api from "../api/axios";
 function Register() {
     const navigate = useNavigate();
     const [login, SetLogin] = useState(false);
@@ -24,8 +27,8 @@ function Register() {
         };
 
         try {
-            const response = await axios.post(
-                "http://localhost:5000/api/register",
+            const response = await api.post(
+                "/api/register",
                 userData
             );
 

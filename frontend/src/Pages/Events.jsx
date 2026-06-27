@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+
+
 import EventCard from "../components/EventCard";
 import { toast } from "react-toastify";
 import './Events.css'
+import api from "../api/axios";
 const Events = () => {
   const [Eventimage, setEventImg] = useState("");
   const [Title, setTitle] = useState("");
@@ -12,8 +14,8 @@ const Events = () => {
 
   async function fetchEvents() {
     try {
-      const response = await axios.get(
-        "http://localhost:5000/api/events"
+      const response = await api.get(
+        "/api/events"
       );
       setEvents(response.data);
     } catch (error) {
@@ -37,16 +39,16 @@ const Events = () => {
 
     try {
       if (editId) {
-        const response = await axios.put(
-          `http://localhost:5000/api/events/${editId}`,
+        const response = await api.put(
+          `/api/events/${editId}`,
           eventData
         );
 
         toast(response.data.message);
         setEditId(null);
       } else {
-        const response = await axios.post(
-          "http://localhost:5000/api/events",
+        const response = await api.post(
+          "/api/events",
           eventData
         );
 
@@ -81,8 +83,8 @@ const Events = () => {
     if (!confirmDelete) return;
 
     try {
-      const response = await axios.delete(
-        `http://localhost:5000/api/events/${id}`
+      const response = await api.delete(
+        `/api/events/${id}`
       );
 
       toast(response.data.message);
